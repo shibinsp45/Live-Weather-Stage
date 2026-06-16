@@ -240,10 +240,10 @@ export default function App() {
           </div>
           <div>
             <span className="font-display font-medium tracking-wider text-[10px] text-slate-400 dark:text-slate-500 uppercase block">
-              Global Weather Instruments Ltd.
+              Weather Playground
             </span>
             <span className="text-[9px] font-mono font-medium text-indigo-500 dark:text-indigo-400">
-              Interactive Atmospheric Stage
+              Interactive Sandbox Stage
             </span>
           </div>
         </div>
@@ -318,10 +318,10 @@ export default function App() {
       {/* Footer Meta Details */}
       <footer id="stage-page-footer" className="w-full max-w-7xl mx-auto flex items-center justify-between z-10 border-t border-slate-200/30 dark:border-slate-800/20 pt-4">
         <p className="text-[9px] font-mono tracking-wider text-slate-400 dark:text-slate-600 uppercase">
-          © {new Date().getFullYear()} METDESK CALIBRATOR • STANDALONE ATMOSPHERIC PANEL
+          © {new Date().getFullYear()} Weather Stage • Interactive Sandbox
         </p>
         <p className="text-[9px] font-mono tracking-wider text-slate-400 dark:text-slate-600 uppercase">
-          STATION OUTLET: <span className="text-indigo-400 font-bold">{selectedStation.id.toUpperCase()}</span>
+          Current Station: <span className="text-indigo-400 font-bold">{selectedStation.cityName}</span>
         </p>
       </footer>
     </div>
