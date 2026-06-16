@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import ControlPanel from "./components/ControlPanel";
 import SnowflakeEffect from "./components/SnowflakeEffect";
 import BalloonEffect from "./components/BalloonEffect";
-import { Sparkles, Sun, CloudSnow, Flame, Command } from "lucide-react";
+import { Sparkles, Sun, Moon, CloudSnow, Flame, Command } from "lucide-react";
 import { WEATHER_STATIONS } from "./data";
 import { WeatherStation } from "./types";
 
@@ -23,11 +23,20 @@ export default function App() {
   // Default theme settings
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Monitor system dark mode cleanly
+  // Monitor system dark mode cleanly on boot
   useEffect(() => {
     const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     setIsDarkMode(isDark);
   }, []);
+
+  // Sync dark mode state with root document class
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
 
   // Snowflake simulation timer
   useEffect(() => {
@@ -212,66 +221,118 @@ export default function App() {
     if (temp <= 0) {
       // Frozen/Arctic Sky
       return isDarkMode
-        ? "bg-slate-950 text-slate-100 bg-[radial-gradient(#1e293b_1.5px,transparent_1.5px)] [background-size:24px_24px] shadow-[inset_0_0_120px_rgba(56,189,248,0.08)]"
-        : "bg-sky-50/70 text-slate-950 bg-[radial-gradient(#bae6fd_1.5px,transparent_1.5px)] [background-size:24px_24px] shadow-[inset_0_0_120px_rgba(14,165,233,0.06)]";
+        ? "bg-slate-950 text-slate-100 bg-gradient-to-tr from-slate-950 via-slate-900 to-sky-950/80"
+        : "bg-sky-50 text-slate-900 bg-gradient-to-tr from-sky-100/90 via-sky-50 to-indigo-100/80";
     } else if (temp >= 15) {
       // Floating/Fiesta Sky
       return isDarkMode
-        ? "bg-slate-950 text-slate-100 bg-[radial-gradient(#271c2b_1.5px,transparent_1.5px)] [background-size:24px_24px] shadow-[inset_0_0_120px_rgba(244,63,94,0.07)]"
-        : "bg-rose-50/40 text-slate-950 bg-[radial-gradient(#fed7aa_1.5px,transparent_1.5px)] [background-size:24px_24px] shadow-[inset_0_0_120px_rgba(244,63,94,0.05)]";
+        ? "bg-slate-950 text-slate-100 bg-gradient-to-tr from-slate-950 via-slate-900 to-amber-955/20"
+        : "bg-rose-50/80 text-slate-900 bg-gradient-to-tr from-rose-100/70 via-orange-50/80 to-amber-105/50";
     } else {
       // Moderate/Clear Sky
       return isDarkMode
-        ? "bg-slate-950 text-slate-100 bg-[radial-gradient(#1e293b_1.5px,transparent_1.5px)] [background-size:24px_24px]"
-        : "bg-slate-50 text-slate-900 bg-[radial-gradient(#e2e8f0_1.5px,transparent_1.5px)] [background-size:24px_24px]";
+        ? "bg-slate-950 text-slate-100 bg-gradient-to-tr from-slate-950 via-slate-900 to-indigo-950/60"
+        : "bg-slate-50 text-slate-900 bg-gradient-to-tr from-slate-100 via-teal-50 to-indigo-50/60";
     }
   };
+
+  // Compute colors for the dynamic glassmorphism backdrop background blobs
+  const getBlobClasses = () => {
+    const temp = selectedStation.temperature;
+    if (temp <= 0) {
+      return {
+        one: "bg-cyan-500/25 dark:bg-cyan-500/10",
+        two: "bg-blue-600/20 dark:bg-blue-600/15",
+        three: "bg-indigo-400/25 dark:bg-indigo-400/10",
+      };
+    } else if (temp >= 15) {
+      return {
+        one: "bg-orange-400/25 dark:bg-orange-500/10",
+        two: "bg-rose-500/25 dark:bg-rose-500/15",
+        three: "bg-yellow-400/20 dark:bg-yellow-405/10",
+      };
+    } else {
+      return {
+        one: "bg-teal-400/20 dark:bg-teal-400/10",
+        two: "bg-sky-400/25 dark:bg-sky-500/15",
+        three: "bg-indigo-300/20 dark:bg-indigo-900/10",
+      };
+    }
+  };
+
+  const blobColors = getBlobClasses();
 
   return (
     <div
       id="main-viewport-container"
-      className={`min-h-screen w-full relative flex flex-col items-center justify-between p-6 overflow-hidden md:p-12 transition-all duration-700 ${getAmbientStyles()}`}
+      className={`min-h-screen w-full relative flex flex-col items-center justify-between p-6 overflow-hidden md:p-12 transition-all duration-1000 ${getAmbientStyles()}`}
     >
-      {/* Decorative Brand Header (Formal & Minimal) */}
+      {/* Dynamic Animated Glassmorphism Background Blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div 
+          className={`absolute -top-1/4 -left-1/4 w-[70vw] h-[70vw] rounded-full blur-[140px] opacity-60 mix-blend-multiply dark:mix-blend-screen transition-all duration-1000 ${blobColors.one}`} 
+        />
+        <div 
+          className={`absolute -bottom-1/4 -right-1/4 w-[60vw] h-[60vw] rounded-full blur-[140px] opacity-65 mix-blend-multiply dark:mix-blend-screen transition-all duration-1000 ${blobColors.two}`} 
+        />
+        <div 
+          className={`absolute top-1/4 left-1/3 w-[40vw] h-[40vw] rounded-full blur-[120px] opacity-40 mix-blend-overlay transition-all duration-1000 ${blobColors.three}`} 
+        />
+      </div>
+
+      {/* Decorative Brand Header (Glassmorphic) */}
       <header id="stage-banner-header" className="w-full max-w-7xl mx-auto flex justify-between items-center z-10">
-        <div className="flex items-center gap-2">
-          <div className="p-2 bg-white/80 dark:bg-slate-900 rounded-xl text-slate-700 dark:text-slate-300 shadow-sm border border-slate-200/50 dark:border-slate-800">
-            <Command size={14} className="text-indigo-500 animate-[spin_10s_linear_infinite]" />
+        <div className="flex items-center gap-2.5">
+          <div className="p-2.5 bg-white/20 dark:bg-slate-900/30 backdrop-blur-md rounded-xl text-slate-800 dark:text-slate-100 shadow-[0_8px_32px_0_rgba(31,38,135,0.05)] border border-white/40 dark:border-white/10">
+            <Command size={15} className="text-indigo-500 dark:text-indigo-400 animate-[spin_12s_linear_infinite]" />
           </div>
           <div>
-            <span className="font-display font-medium tracking-wider text-[10px] text-slate-400 dark:text-slate-500 uppercase block">
+            <span className="font-display font-medium tracking-wider text-[10px] text-slate-500 dark:text-slate-400 uppercase block font-semibold">
               Weather Playground
             </span>
-            <span className="text-[9px] font-mono font-medium text-indigo-500 dark:text-indigo-400">
+            <span className="text-[9px] font-mono font-medium text-indigo-600 dark:text-indigo-400 block mt-0.5">
               Interactive Sandbox Stage
             </span>
           </div>
         </div>
         
-        {/* Sky Condition Status HUD */}
-        <div className="flex items-center gap-2 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md py-1.5 px-3 rounded-full border border-slate-200/40 dark:border-slate-850">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span className="text-[10px] font-mono tracking-wider text-slate-500 dark:text-slate-400 font-semibold uppercase flex items-center gap-1">
-            {selectedStation.temperature <= 0 ? (
-              <>
-                <CloudSnow size={11} className="text-sky-400" />
-                <span>Arctic Freeze</span>
-              </>
-            ) : selectedStation.temperature >= 15 ? (
-              <>
-                <Flame size={11} className="text-rose-400" />
-                <span>Thermal Draft</span>
-              </>
-            ) : (
-              <>
-                <Sun size={11} className="text-amber-500" />
-                <span>Temperate Climate</span>
-              </>
-            )}
-          </span>
+        {/* Sky Condition & Theme Toggler Glass HUD */}
+        <div className="flex items-center gap-3">
+          {/* Quick interactive Theme Mode Toggle Button */}
+          <button
+            id="theme-toggler"
+            type="button"
+            onClick={() => setIsDarkMode((prev) => !prev)}
+            className="p-2 bg-white/20 dark:bg-slate-900/30 backdrop-blur-md rounded-full border border-white/40 dark:border-white/10 text-slate-700 dark:text-slate-200 hover:text-indigo-500 dark:hover:text-indigo-400 hover:scale-105 transition-all shadow-sm cursor-pointer"
+            title="Switch Atmosphere Theme"
+          >
+            {isDarkMode ? <Sun size={14} className="text-amber-400" /> : <Moon size={14} className="text-indigo-600" />}
+          </button>
+
+          <div className="flex items-center gap-2 bg-white/20 dark:bg-slate-900/30 backdrop-blur-md py-1.5 px-3.5 rounded-full border border-white/40 dark:border-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.05)]">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span className="text-[10px] font-mono tracking-wider text-slate-700 dark:text-slate-300 font-bold uppercase flex items-center gap-1.5">
+              {selectedStation.temperature <= 0 ? (
+                <>
+                  <CloudSnow size={11} className="text-sky-500 dark:text-sky-400" />
+                  <span>Arctic Freeze</span>
+                </>
+              ) : selectedStation.temperature >= 15 ? (
+                <>
+                  <Flame size={11} className="text-rose-500 dark:text-rose-400" />
+                  <span>Thermal Draft</span>
+                </>
+              ) : (
+                <>
+                  <Sun size={11} className="text-amber-500 dark:text-amber-400" />
+                  <span>Temperate Climate</span>
+                </>
+              )}
+            </span>
+          </div>
         </div>
       </header>
 

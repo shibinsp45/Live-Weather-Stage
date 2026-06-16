@@ -104,10 +104,10 @@ export default function ControlPanel({
   return (
     <div 
       id="control-panel-container"
-      className="w-full max-w-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-3xl border border-slate-100 dark:border-slate-800 shadow-[0_32px_64px_-16px_rgba(15,23,42,0.15)] overflow-hidden z-30 transition-all duration-550"
+      className="w-full max-w-xl bg-white/45 dark:bg-slate-900/40 backdrop-blur-2xl rounded-3xl border border-white/50 dark:border-white/10 shadow-[0_24px_64px_-16px_rgba(15,23,42,0.18)] overflow-hidden z-30 transition-all duration-500"
     >
       {/* Top Active Ambient Status Line for visual progress */}
-      <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 relative">
+      <div className="h-1.5 w-full bg-slate-100/50 dark:bg-slate-800/55 relative">
         <div 
           className="absolute top-0 bottom-0 left-0 bg-sky-400 transition-all duration-300"
           style={{ width: isSnowActive ? `${(snowTimeRemaining / 5) * 100}%` : "0%" }}
@@ -127,21 +127,21 @@ export default function ControlPanel({
         {/* Simplified Header Row */}
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="p-2.5 bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-950 dark:to-indigo-900 rounded-xl text-indigo-600 dark:text-indigo-400">
+            <div className="p-2.5 bg-white/30 dark:bg-slate-900/20 backdrop-blur-md border border-white/50 dark:border-white/10 rounded-xl text-indigo-600 dark:text-indigo-400">
               <Sun size={20} className="animate-spin" style={{ animationDuration: "14s" }} />
             </div>
             <div>
               <h1 className="text-xl font-bold text-slate-800 dark:text-slate-100 tracking-tight font-display flex items-center gap-1.5">
                 Live Weather Stage
               </h1>
-              <p className="text-xs text-slate-400 dark:text-slate-500 font-sans">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-sans">
                 Type any city to watch real-time conditions come alive
               </p>
             </div>
           </div>
           
-          <div className="flex items-center gap-1 bg-slate-50 dark:bg-slate-950 px-2.5 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 font-mono text-xs font-semibold border border-slate-100 dark:border-slate-850 shadow-sm shrink-0">
-            <Clock size={11} className="text-slate-400" />
+          <div className="flex items-center gap-1 bg-white/30 dark:bg-slate-955/40 backdrop-blur-md px-2.5 py-1.5 rounded-xl text-slate-600 dark:text-slate-300 font-mono text-xs font-semibold border border-white/40 dark:border-white/5 shadow-sm shrink-0">
+            <Clock size={11} className="text-indigo-500" />
             <span>{formattedTime || "00:00:00"}</span>
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function ControlPanel({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 disabled={isSearching}
-                className="w-full pl-10 pr-24 py-3 text-xs text-slate-800 dark:text-slate-100 placeholder-slate-450 dark:placeholder-slate-550 bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 disabled:opacity-75 transition-all font-medium"
+                className="w-full pl-10 pr-24 py-3 text-xs text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 bg-white/30 dark:bg-slate-950/40 backdrop-blur-md border border-white/40 dark:border-white/5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:bg-white/50 dark:focus:bg-slate-950/60 disabled:opacity-75 transition-all font-medium"
               />
               <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
                 {isSearching ? (
@@ -171,7 +171,7 @@ export default function ControlPanel({
                 <button
                   type="submit"
                   disabled={isSearching || !searchQuery.trim()}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-200 dark:disabled:bg-slate-900 disabled:text-slate-450 dark:disabled:text-slate-500 text-white text-xs font-sans font-bold rounded-xl shadow-md shadow-indigo-500/10 hover:shadow-indigo-500/20 transition-all cursor-pointer"
+                  className="px-4 py-2 bg-indigo-600/90 dark:bg-indigo-650/90 hover:bg-indigo-700 hover:scale-[1.02] disabled:hover:scale-100 disabled:bg-slate-200/60 dark:disabled:bg-slate-900/60 disabled:text-slate-450 dark:disabled:text-slate-500 text-white text-xs font-sans font-bold rounded-xl shadow-md shadow-indigo-500/10 hover:shadow-indigo-500/20 transition-all cursor-pointer"
                 >
                   {isSearching ? "Searching..." : "Search"}
                 </button>
@@ -194,7 +194,7 @@ export default function ControlPanel({
                 <button
                   type="button"
                   onClick={onClearSearchError}
-                  className="text-[10px] text-rose-500 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-100/40 dark:hover:bg-rose-950 font-mono font-bold px-2 py-1 rounded bg-white dark:bg-slate-900 border border-rose-200/50 hover:border-rose-300 dark:border-rose-900/50 focus:outline-none cursor-pointer"
+                  className="text-[10px] text-rose-500 hover:text-rose-750 dark:hover:text-rose-300 hover:bg-rose-100/40 dark:hover:bg-rose-950/60 font-mono font-bold px-2 py-1 rounded bg-white/30 dark:bg-slate-900/40 border border-rose-200/40 hover:border-rose-300 dark:border-rose-900/40 backdrop-blur-sm focus:outline-none cursor-pointer"
                 >
                   Dismiss
                 </button>
@@ -203,8 +203,8 @@ export default function ControlPanel({
           </AnimatePresence>
         </div>
 
-        {/* 2. Unified Meteorological Display (Primary Card) */}
-        <div className="bg-gradient-to-br from-indigo-500/5 to-purple-500/5 dark:from-indigo-500/10 dark:to-purple-500/10 border border-indigo-100/40 dark:border-indigo-900/20 p-5 rounded-2xl relative overflow-hidden">
+        {/* 2. Unified Meteorological Display (Primary Card with Premium Frosted Glass effect) */}
+        <div className="bg-white/30 dark:bg-slate-950/30 backdrop-blur-xl border border-white/50 dark:border-white/5 p-5 rounded-2xl relative overflow-hidden shadow-sm shadow-indigo-500/5">
           
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             
@@ -214,7 +214,7 @@ export default function ControlPanel({
                 {selectedStation.temperature}°C
               </div>
               <div>
-                <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider block">
+                <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider block font-sans">
                   Current Temperature
                 </span>
                 <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 font-mono">
@@ -225,7 +225,7 @@ export default function ControlPanel({
 
             {/* Right side: Station Location metadata */}
             <div className="sm:text-right">
-              <div className="flex sm:justify-end items-center gap-1 text-indigo-600 dark:text-indigo-400 font-bold text-sm tracking-tight">
+              <div className="flex sm:justify-end items-center gap-1 text-indigo-650 dark:text-indigo-400 font-extrabold text-sm tracking-tight font-display">
                 <MapPin size={14} className="text-indigo-500" />
                 <span>{selectedStation.cityName}</span>
               </div>
@@ -233,7 +233,7 @@ export default function ControlPanel({
                 {selectedStation.country}
               </p>
               
-              <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-55 bg-indigo-100/60 dark:bg-indigo-950/70 border border-indigo-200/30 dark:border-indigo-900/40 font-semibold text-[10px] text-indigo-700 dark:text-indigo-300">
+              <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/40 dark:bg-slate-900/45 backdrop-blur-md border border-white/50 dark:border-white/5 font-semibold text-[10px] text-indigo-700 dark:text-indigo-300">
                 {weatherMode}
               </div>
             </div>
@@ -246,30 +246,30 @@ export default function ControlPanel({
           </div>
 
           {/* Clean 3-Column Weather Gauges */}
-          <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-dashed border-indigo-100/30 dark:border-indigo-900/20">
-            <div className="bg-white/40 dark:bg-slate-950/20 p-2.5 rounded-xl border border-indigo-100/10 dark:border-indigo-900/10 flex flex-col items-center">
-              <Droplets size={14} className="text-cyan-500 mb-1" />
-              <span className="text-[9px] text-slate-400 dark:text-slate-500 font-semibold uppercase tracking-wider">Humidity</span>
-              <span className="text-xs font-bold text-slate-800 dark:text-slate-100 font-mono mt-0.5">{selectedStation.humidity}%</span>
+          <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-white/20 dark:border-white/5">
+            <div className="bg-white/40 dark:bg-slate-900/20 p-2.5 rounded-xl border border-white/50 dark:border-white/5 flex flex-col items-center backdrop-blur-md">
+              <Droplets size={14} className="text-cyan-550 dark:text-cyan-400 mb-1" />
+              <span className="text-[9px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Humidity</span>
+              <span className="text-xs font-extrabold text-slate-800 dark:text-slate-100 font-mono mt-0.5">{selectedStation.humidity}%</span>
             </div>
             
-            <div className="bg-white/40 dark:bg-slate-950/20 p-2.5 rounded-xl border border-indigo-100/10 dark:border-indigo-900/10 flex flex-col items-center">
+            <div className="bg-white/40 dark:bg-slate-900/20 p-2.5 rounded-xl border border-white/50 dark:border-white/5 flex flex-col items-center backdrop-blur-md">
               <Wind size={14} className="text-sky-400 mb-1" />
-              <span className="text-[9px] text-slate-400 dark:text-slate-500 font-semibold uppercase tracking-wider">Wind</span>
-              <span className="text-xs font-bold text-slate-800 dark:text-slate-100 font-mono mt-0.5">{selectedStation.windSpeed} km/h</span>
+              <span className="text-[9px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Wind</span>
+              <span className="text-xs font-extrabold text-slate-800 dark:text-slate-100 font-mono mt-0.5">{selectedStation.windSpeed} km/h</span>
             </div>
 
-            <div className="bg-white/40 dark:bg-slate-950/20 p-2.5 rounded-xl border border-indigo-100/10 dark:border-indigo-900/10 flex flex-col items-center">
-              <Compass size={14} className="text-indigo-400 mb-1" />
-              <span className="text-[9px] text-slate-400 dark:text-slate-500 font-semibold uppercase tracking-wider">Pressure</span>
-              <span className="text-xs font-bold text-slate-800 dark:text-slate-100 font-mono mt-0.5">{selectedStation.pressure} hPa</span>
+            <div className="bg-white/40 dark:bg-slate-900/20 p-2.5 rounded-xl border border-white/50 dark:border-white/5 flex flex-col items-center backdrop-blur-md">
+              <Compass size={14} className="text-indigo-500 dark:text-indigo-400 mb-1" />
+              <span className="text-[9px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Pressure</span>
+              <span className="text-xs font-extrabold text-slate-800 dark:text-slate-100 font-mono mt-0.5">{selectedStation.pressure} hPa</span>
             </div>
           </div>
 
         </div>
 
-        {/* 3. Recharts 7-Day Temperature Trend Chart (Consolidated & Compact) */}
-        <div className="bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800/50 p-4 rounded-2xl space-y-2">
+        {/* 3. Recharts 7-Day Temperature Trend Chart (Consolidated & Compact Frosted Glass) */}
+        <div className="bg-white/20 dark:bg-slate-950/30 backdrop-blur-md border border-white/30 dark:border-white/5 p-4 rounded-2xl space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider font-sans">
               7-Day Temperature Trend
@@ -344,7 +344,7 @@ export default function ControlPanel({
             </span>
           </div>
 
-          <div className="p-3.5 bg-slate-50 dark:bg-slate-950/20 border border-slate-100 dark:border-slate-800/40 rounded-2xl space-y-3">
+          <div className="p-3.5 bg-white/25 dark:bg-slate-950/20 backdrop-blur-sm border border-white/30 dark:border-white/5 rounded-2xl space-y-3 shadow-inner">
             <div className="flex items-center gap-3">
               <span className="text-[10px] font-semibold text-slate-400 font-mono">❄️ -10°C</span>
               <input
@@ -365,8 +365,8 @@ export default function ControlPanel({
           </div>
         </div>
 
-        {/* 5. Direct Interactive Magic Effects Panel (The Big Action Buttons) */}
-        <div className="p-4 bg-slate-50 dark:bg-slate-950/20 border border-slate-100 dark:border-slate-800/40 rounded-2xl space-y-3">
+        {/* 5. Direct Interactive Magic Effects Panel (The Big Action Buttons styled with Frosted Glass) */}
+        <div className="p-4 bg-white/25 dark:bg-slate-955/20 backdrop-blur-sm border border-white/30 dark:border-white/5 rounded-2xl space-y-3">
           <div className="text-xs font-bold text-slate-400 dark:text-slate-500 tracking-wider uppercase flex items-center gap-1">
             <Sparkles size={12} className="text-indigo-400" />
             <span>Interactive Atmosphere Triggers</span>
@@ -377,13 +377,13 @@ export default function ControlPanel({
             {/* Trigger 1: Snow */}
             <motion.button
               id="btn-trigger-snowflakes"
-              whileHover={{ y: -1 }}
+              whileHover={{ y: -1, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
               onClick={onTriggerSnowflakes}
-              className={`relative flex flex-col items-center justify-center p-3.5 rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden ${
+              className={`relative flex flex-col items-center justify-center p-3.5 rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-md ${
                 isSnowActive
-                  ? "bg-sky-500/10 dark:bg-sky-500/5 border-sky-400 text-sky-600 dark:text-sky-300 font-bold"
-                  : "bg-white hover:bg-slate-50 dark:bg-slate-900/40 border-slate-250 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-semibold"
+                  ? "bg-sky-500/20 dark:bg-sky-500/10 border-sky-400 text-sky-700 dark:text-sky-300 font-bold"
+                  : "bg-white/30 hover:bg-white/45 dark:bg-white/5 dark:hover:bg-white/10 border-white/40 dark:border-white/5 text-slate-700 dark:text-slate-200 font-semibold"
               }`}
             >
               {isSnowActive && (
@@ -406,13 +406,13 @@ export default function ControlPanel({
             {/* Trigger 2: Balloons */}
             <motion.button
               id="btn-trigger-balloons"
-              whileHover={{ y: -1 }}
+              whileHover={{ y: -1, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
               onClick={onTriggerBalloons}
-              className={`relative flex flex-col items-center justify-center p-3.5 rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden ${
+              className={`relative flex flex-col items-center justify-center p-3.5 rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-md ${
                 isBalloonActive
-                  ? "bg-rose-500/10 dark:bg-rose-500/5 border-rose-400 text-rose-600 dark:text-rose-300 font-bold"
-                  : "bg-white hover:bg-slate-50 dark:bg-slate-900/40 border-slate-250 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-semibold"
+                  ? "bg-rose-500/20 dark:bg-rose-500/10 border-rose-400 text-rose-700 dark:text-rose-300 font-bold"
+                  : "bg-white/30 hover:bg-white/45 dark:bg-white/5 dark:hover:bg-white/10 border-white/40 dark:border-white/5 text-slate-700 dark:text-slate-200 font-semibold relative"
               }`}
             >
               {isBalloonActive && (
@@ -451,8 +451,8 @@ export default function ControlPanel({
                   onClick={() => onSelectStation(station)}
                   className={`px-3 py-1.5 text-[11px] rounded-full border cursor-pointer transition-all ${
                     isCurrent
-                      ? "bg-indigo-600 border-indigo-600 text-white font-semibold shadow-sm shadow-indigo-500/10"
-                      : "bg-slate-50 hover:bg-slate-100 dark:bg-slate-950 dark:hover:bg-slate-900 border-slate-200/70 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-medium"
+                      ? "bg-indigo-600 border-indigo-600 text-white font-bold shadow-sm shadow-indigo-500/10"
+                      : "bg-white/25 hover:bg-white/40 dark:bg-white/5 dark:hover:bg-white/10 backdrop-blur-sm border-white/35 dark:border-white/5 text-slate-700 dark:text-slate-200 font-medium hover:scale-105"
                   }`}
                 >
                   {isFreezing ? "❄️" : "☀️"} {station.cityName} ({station.temperature}°C)
@@ -465,7 +465,7 @@ export default function ControlPanel({
       </div>
 
       {/* Simplified Footer Controls */}
-      <div className="bg-slate-50/80 dark:bg-slate-950/40 px-6 py-4 border-t border-slate-100 dark:border-slate-800/40 flex items-center justify-between text-xs text-slate-500 font-sans">
+      <div className="bg-white/20 dark:bg-slate-955/20 px-6 py-4 border-t border-white/35 dark:border-white/5 flex items-center justify-between text-xs text-slate-650 dark:text-slate-350 font-sans backdrop-blur-md">
         <span className="flex items-center gap-1.5 font-semibold">
           <span className={`inline-block w-2.5 h-2.5 rounded-full ${
             (isSnowActive || isBalloonActive) ? "bg-emerald-500 animate-pulse" : "bg-slate-300 dark:bg-slate-700"
@@ -477,7 +477,7 @@ export default function ControlPanel({
           <button
             id="btn-clear-simulations"
             onClick={onClearAll}
-            className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-400 hover:text-rose-500 transition-colors font-bold cursor-pointer py-1.5 px-3 bg-white dark:bg-slate-900 border border-slate-250 dark:border-slate-800 rounded-xl shadow-sm"
+            className="flex items-center gap-1 text-xs text-slate-700 dark:text-slate-300 hover:text-rose-500 transition-colors font-bold cursor-pointer py-1.5 px-3 bg-white/25 dark:bg-slate-900/20 hover:bg-white/40 border border-white/40 dark:border-white/5 rounded-xl shadow-sm backdrop-blur-sm"
           >
             <Trash2 size={11} className="text-rose-500" />
             <span>Clear Effects</span>
