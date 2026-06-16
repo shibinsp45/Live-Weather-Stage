@@ -1,0 +1,6 @@
+{
+  "name": "Live Weather Stage - Snowflakes and Balloons",
+  "description": "An elegant, premium full-stack weather forecast application. Search any worldwide city to dynamically generate real-time atmospheric conditions via Gemini, automatically triggering beautiful falling snowflakes or upward floating balloons on a clean interactive digital presentation canvas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
